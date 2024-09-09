@@ -11,7 +11,7 @@ export class Curso{
     @Column({type:'text'})
     descripcion:string;
 
-    @ManyToOne(()=>Estudiante)
+    @ManyToOne(()=>Profesor)
     @JoinColumn({name:'profesor_id'})
     profesor:Profesor;
 
