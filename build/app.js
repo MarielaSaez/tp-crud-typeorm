@@ -6,20 +6,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
-const port = 3000;
-const app = (0, express_1.default)();
+const path_1 = __importDefault(require("path"));
 const estudianteRouter_1 = __importDefault(require("./routes/estudianteRouter"));
-const profesorRoutes_1 = __importDefault(require("./routes/profesorRoutes"));
-const cursosRouter_1 = __importDefault(require("./routes/cursosRouter"));
-const inscripcionRouter_1 = __importDefault(require("./routes/inscripcionRouter"));
+const method_override_1 = __importDefault(require("method-override"));
+const app = (0, express_1.default)();
+//habilitamos pug
+app.set('view engine', 'pug');
+app.set('views', path_1.default.join(__dirname, '/views'));
+//carpeta pblica
+app.use(express_1.default.static('public'));
+app.use((0, method_override_1.default)('_method'));
 app.use(express_1.default.json());
-app.use((0, cors_1.default)());
+app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, morgan_1.default)('dev'));
+app.use((0, cors_1.default)());
 app.get('/', (req, res) => {
-    res.send('App universidad');
+    return res.render('layout', {
+        pagina: 'App Univerdsidad',
+    });
 });
 app.use('/estudiantes', estudianteRouter_1.default);
-app.use('/profesores', profesorRoutes_1.default);
-app.use('/cursos', cursosRouter_1.default);
-app.use('/inscripciones', inscripcionRouter_1.default);
 exports.default = app;

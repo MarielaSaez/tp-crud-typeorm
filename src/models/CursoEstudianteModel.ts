@@ -1,8 +1,13 @@
 import { Column, PrimaryColumn, Entity, ManyToOne, JoinColumn } from "typeorm";
+
 import { Curso } from './CursoModel';
+
 import { Estudiante } from './EstudianteModel';
-@Entity('curso_estudiantes')
-export class CursoEsudiante{
+
+@Entity('cursos_estudiantes')
+
+export class CursoEstudiante{
+
     @PrimaryColumn()
     profesor_id:number;
     @PrimaryColumn()
